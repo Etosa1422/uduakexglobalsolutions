@@ -282,12 +282,43 @@
     @keyframes shine {
       to { background-position: 200% center; }
     }
+    .hero-carousel { min-height: 248px; }
+    .hero-slide { display: none; }
+    .hero-slide.is-active {
+      display: block;
+      animation: heroSlideIn 0.55s ease both;
+    }
+    @keyframes heroSlideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .hero-sub {
       font-size: 1.1rem;
       color: #9db4c7;
       max-width: 540px;
       line-height: 1.75;
       margin-bottom: 2.2rem;
+    }
+    .hero-carousel-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-top: 1.35rem;
+    }
+    .hero-carousel-control {
+      padding: 0.4rem 0.75rem;
+      color: #9db4c7;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .hero-carousel-control:hover,
+    .hero-carousel-control[aria-pressed="true"] {
+      color: #04121c;
+      background: var(--cyan);
+      border-color: var(--cyan);
     }
     .sector-pills .pill {
       display: inline-flex;
@@ -319,10 +350,11 @@
       border: 1px solid rgba(255, 255, 255, 0.09);
       backdrop-filter: blur(6px);
       animation: heroFloat 7s ease-in-out infinite alternate;
+      box-shadow: 0 25px 80px -30px rgba(13, 202, 240, 0.35);
     }
     @keyframes heroFloat {
-      from { transform: translateY(0); }
-      to { transform: translateY(-14px); }
+      from { transform: translateY(0) rotateX(0deg); }
+      to { transform: translateY(-14px) rotateX(2deg); }
     }
     .hv-grid {
       display: grid;
@@ -445,6 +477,13 @@
       border: 1px solid rgba(255, 255, 255, 0.075);
       overflow: hidden;
       transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+      animation: cardFloat 7s ease-in-out infinite alternate;
+    }
+    .svc-card:nth-child(2n) { animation-delay: 0.7s; }
+    .svc-card:nth-child(3n) { animation-delay: 1.4s; }
+    @keyframes cardFloat {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-5px); }
     }
     .svc-card::before {
       content: '';
@@ -580,6 +619,12 @@
       padding: 2.3rem;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 25px 45px -30px rgba(13, 202, 240, 0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .founder-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 30px 62px -28px rgba(13, 202, 240, 0.45);
     }
     .founder-card::after {
       content: '';
@@ -671,6 +716,12 @@
       border: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.03);
       padding: 2.4rem;
+      box-shadow: 0 20px 50px -34px rgba(13, 202, 240, 0.28);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .contact-panel:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 25px 60px -30px rgba(13, 202, 240, 0.42);
     }
     .form-control, .form-control:focus {
       background: rgba(255, 255, 255, 0.045);
@@ -744,6 +795,123 @@
       color: #6d8598;
     }
 
+    /* ---------- preloader ---------- */
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      background: radial-gradient(circle at top, rgba(13, 202, 240, 0.12), rgba(4, 10, 18, 1) 45%), #040a12;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
+    }
+    .page-loader.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .page-loader__ring {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 1px solid rgba(13, 202, 240, 0.35);
+      border-top-color: var(--cyan);
+      border-right-color: rgba(255,255,255,0.7);
+      position: relative;
+      animation: spinLoader 1.35s linear infinite;
+      box-shadow: 0 0 20px rgba(13, 202, 240, 0.28);
+    }
+    .page-loader__ring::before,
+    .page-loader__ring::after {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(13, 202, 240, 0.18);
+      border-radius: 50%;
+    }
+    .page-loader__ring::after {
+      inset: 24px;
+      border-color: rgba(255,255,255,0.5);
+    }
+    @keyframes spinLoader {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .page-loader__core {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      text-align: center;
+    }
+    .page-loader__brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.06em;
+      color: #fff;
+    }
+    .page-loader__tag {
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      font-size: 0.6rem;
+      font-weight: 700;
+    }
+    .page-loader__line {
+      width: min(260px, 52vw);
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+    .page-loader__line span {
+      position: absolute;
+      inset: 0;
+      width: 35%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(13, 202, 240, 0.2), var(--cyan), rgba(13, 202, 240, 0.2));
+      animation: loadingSweep 1.4s ease-in-out infinite;
+    }
+    @keyframes loadingSweep {
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(290%); }
+    }
+
+    /* scroll to top */
+    .scroll-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 30;
+      width: 52px;
+      height: 52px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), #b8f3ff);
+      color: #04121c;
+      box-shadow: 0 14px 30px -10px rgba(13, 202, 240, 0.6);
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(18px) scale(0.9);
+      transition: all 0.3s ease;
+    }
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+    .scroll-top:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 18px 34px -10px rgba(13, 202, 240, 0.9);
+    }
+
     /* reveal animation */
     .reveal {
       opacity: 0;
@@ -781,37 +949,16 @@
 </head>
 <body>
 
-<!-- ==================== NAVBAR ==================== -->
-<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
-  <div class="container">
-    <a class="brand-lockup" href="#home">
-      <!-- ================= LOGO IMAGE SPOT ================= -->
-      <div class="logo-spot" title="Uduakex Global Solutions Logo">
-        <img src="{{ asset('images/logo.png') }}" alt="Uduakex Global Solutions Logo" id="siteLogo"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <span class="logo-fallback">U</span>
-      </div>
-      <!-- ==================================================== -->
-    </a>
-
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon" style="filter: invert(1) brightness(1.6);"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
-        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#founder">Founder</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-          <a href="#contact" class="btn btn-cyan w-100">Get in touch <i class="fas fa-arrow-right ms-1" style="font-size:0.8em;"></i></a>
-        </li>
-      </ul>
-    </div>
+<div class="page-loader" id="pageLoader" aria-live="polite" aria-busy="true">
+  <div class="page-loader__ring"></div>
+  <div class="page-loader__core">
+    <span class="page-loader__brand">Uduakex</span>
+    <span class="page-loader__tag">Global Solutions</span>
   </div>
-</nav>
+  <div class="page-loader__line"><span></span></div>
+</div>
+
+@include('home.partials.header')
 
 <!-- ==================== HERO ==================== -->
 <section class="hero" id="home">
@@ -821,13 +968,25 @@
     <div class="row align-items-center g-5">
       <div class="col-lg-7">
         <div class="hero-eyebrow reveal"><span class="dot"></span> BN 3666391 · CAC Registered · Nigeria</div>
-        <h1 class="hero-title reveal">
-          Building the future<br>
-          <span class="grad">across three worlds.</span>
-        </h1>
-        <p class="hero-sub reveal">
-          Uduakex Global Solutions unites <strong style="color:#d7e6f1;">technology, real estate, and agricultural services</strong>  delivering future-ready, end-to-end solutions from Port Harcourt to the world.
-        </p>
+        <div class="hero-carousel reveal" id="heroCarousel" aria-label="Our areas of expertise">
+          <div class="hero-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 3">
+            <h1 class="hero-title">Building the future<br><span class="grad">through technology.</span></h1>
+            <p class="hero-sub">Practical IT training, cybersecurity, and technology solutions that help people and businesses move forward.</p>
+          </div>
+          <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
+            <h1 class="hero-title">Building the future<br><span class="grad">in real estate.</span></h1>
+            <p class="hero-sub">Property advisory, acquisition, and development support to help clients make confident real estate decisions.</p>
+          </div>
+          <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
+            <h1 class="hero-title">Building the future<br><span class="grad">through agriculture.</span></h1>
+            <p class="hero-sub">Agricultural services and agribusiness support focused on sustainable farming and stronger communities.</p>
+          </div>
+        </div>
+        <div class="hero-carousel-controls" role="group" aria-label="Choose a business area">
+          <button type="button" class="hero-carousel-control" aria-pressed="true" data-slide="0">Technology</button>
+          <button type="button" class="hero-carousel-control" aria-pressed="false" data-slide="1">Real Estate</button>
+          <button type="button" class="hero-carousel-control" aria-pressed="false" data-slide="2">Agriculture</button>
+        </div>
 
         <div class="sector-pills reveal">
           <span class="pill"><i class="fas fa-microchip"></i> Technology</span>
@@ -1138,7 +1297,7 @@
                 <a href="#" class="social-ico" target="_blank" aria-label="Threads"><i class="fab fa-threads"></i></a>
                 <a href="#" class="social-ico" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                 <a href="#" class="social-ico" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="social-ico" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://wa.me/2349062378111" class="social-ico" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp"><i class="fab fa-whatsapp"></i></a>
               </div>
             </div>
           </div>
@@ -1182,6 +1341,13 @@
             </div>
           </div>
           <div class="contact-line">
+            <i class="fas fa-phone"></i>
+            <div>
+              <div class="cl-label">Phone</div>
+              <a href="tel:+2349062378111" class="cl-val text-decoration-none text-reset">+234 9062 378111</a>
+            </div>
+          </div>
+          <div class="contact-line">
             <i class="fas fa-globe"></i>
             <div>
               <div class="cl-label">Website</div>
@@ -1191,7 +1357,7 @@
         </div>
 
         <div class="d-flex flex-wrap gap-3 mt-4 reveal">
-          <a href="#" class="btn btn-cyan"><i class="fab fa-whatsapp me-2"></i> WhatsApp</a>
+          <a href="https://wa.me/2349062378111" class="btn btn-cyan" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp me-2"></i> WhatsApp</a>
           <a href="#" class="btn btn-ghost"><i class="fas fa-paper-plane me-2"></i> Message</a>
         </div>
       </div>
@@ -1239,79 +1405,78 @@
   </div>
 </section>
 
-<!-- ==================== FOOTER ==================== -->
-<footer>
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-lg-4">
-        <a class="brand-lockup mb-3" href="#home" style="text-decoration:none;">
-          <!-- Footer logo spot - same image path -->
-          <div class="logo-spot" title="Uduakex Global Solutions Logo">
-            <img src="logo.png" alt="Uduakex Logo"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <span class="logo-fallback">U</span>
-          </div>
-          <div class="brand-text">
-            <span class="b-main">Uduakex</span>
-            <span class="b-sub">Global Solutions</span>
-          </div>
-        </a>
-        <p style="color:#8ba3b8; font-size:0.88rem; line-height:1.75; max-width:320px;">
-          Technology · Real Estate · Agricultural Services. A Nigerian enterprise registered with the CAC under BN 3666391.
-        </p>
-        <div class="d-flex gap-2 mt-3">
-          <a href="#" class="social-ico" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="social-ico" aria-label="Threads"><i class="fab fa-threads"></i></a>
-          <a href="#" class="social-ico" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-          <a href="#" class="social-ico" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-      </div>
-
-      <div class="col-6 col-lg-2">
-        <div class="foot-title">Explore</div>
-        <a href="#home" class="foot-link">Home</a>
-        <a href="#services" class="foot-link">Services</a>
-        <a href="#about" class="foot-link">About</a>
-        <a href="#founder" class="foot-link">Founder</a>
-        <a href="#contact" class="foot-link">Contact</a>
-      </div>
-
-      <div class="col-6 col-lg-3">
-        <div class="foot-title">Services</div>
-        <a href="#services" class="foot-link">IT Training &amp; Coaching</a>
-        <a href="#services" class="foot-link">Cybersecurity</a>
-        <a href="#services" class="foot-link">Gadgets &amp; Equipment</a>
-        <a href="#services" class="foot-link">Real Estate</a>
-        <a href="#services" class="foot-link">Agricultural Services</a>
-      </div>
-
-      <div class="col-lg-3">
-        <div class="foot-title">Contact</div>
-        <p style="color:#8ba3b8; font-size:0.88rem; margin-bottom:0.7rem;">
-          <i class="fas fa-location-dot text-cyan me-2"></i>Oyigbo, Nigeria<br>
-          <span style="padding-left:1.35rem;">14 Iriebe, Obio/Akpor</span>
-        </p>
-        <p style="color:#8ba3b8; font-size:0.88rem; margin-bottom:0.7rem;">
-          <i class="fas fa-envelope text-cyan me-2"></i>uduakben@uduakexglobalsolutions.online
-        </p>
-        <p style="color:#8ba3b8; font-size:0.88rem; margin:0;">
-          <i class="fas fa-globe text-cyan me-2"></i>uduakexglobalsolutions.online
-        </p>
-      </div>
-    </div>
-
-    <div class="foot-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
-      <span>© <span id="year"></span> Uduakex Global Solutions · BN 3666391. All rights reserved.</span>
-      <span style="font-size:0.78rem;">Built for <span class="text-cyan">uduakexglobalsolutions.online</span></span>
-    </div>
-  </div>
-</footer>
+@include('home.partials.footer')
 
 <!-- Bootstrap Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   (function () {
     'use strict';
+
+    const pageLoader = document.getElementById('pageLoader');
+    if (pageLoader) {
+      const hideLoader = () => {
+        pageLoader.classList.add('is-hidden');
+      };
+      window.addEventListener('load', () => setTimeout(hideLoader, 500));
+      setTimeout(hideLoader, 1800);
+    }
+
+    const heroCarousel = document.getElementById('heroCarousel');
+    const heroSlides = heroCarousel ? Array.from(heroCarousel.querySelectorAll('.hero-slide')) : [];
+    const heroControls = Array.from(document.querySelectorAll('.hero-carousel-control'));
+    if (heroSlides.length && heroControls.length === heroSlides.length) {
+      let activeSlide = 0;
+      let carouselTimer;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const showHeroSlide = index => {
+        activeSlide = index;
+        heroSlides.forEach((slide, slideIndex) => {
+          const isActive = slideIndex === index;
+          slide.classList.toggle('is-active', isActive);
+          slide.setAttribute('aria-hidden', String(!isActive));
+        });
+        heroControls.forEach((control, controlIndex) => {
+          control.setAttribute('aria-pressed', String(controlIndex === index));
+        });
+      };
+      const stopHeroCarousel = () => window.clearInterval(carouselTimer);
+      const startHeroCarousel = () => {
+        stopHeroCarousel();
+        if (!reducedMotion) {
+          carouselTimer = window.setInterval(() => {
+            showHeroSlide((activeSlide + 1) % heroSlides.length);
+          }, 6000);
+        }
+      };
+
+      heroControls.forEach((control, index) => {
+        control.addEventListener('click', () => {
+          showHeroSlide(index);
+          startHeroCarousel();
+        });
+      });
+      heroCarousel.addEventListener('mouseenter', stopHeroCarousel);
+      heroCarousel.addEventListener('mouseleave', startHeroCarousel);
+      heroCarousel.addEventListener('focusin', stopHeroCarousel);
+      heroCarousel.addEventListener('focusout', event => {
+        if (!heroCarousel.contains(event.relatedTarget)) startHeroCarousel();
+      });
+      showHeroSlide(0);
+      startHeroCarousel();
+    }
+
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    if (scrollTopBtn) {
+      const toggleScrollTop = () => {
+        scrollTopBtn.classList.toggle('visible', window.scrollY > 480);
+      };
+      window.addEventListener('scroll', toggleScrollTop, { passive: true });
+      toggleScrollTop();
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
 
     /* ---------- current year ---------- */
     document.getElementById('year').textContent = new Date().getFullYear();
