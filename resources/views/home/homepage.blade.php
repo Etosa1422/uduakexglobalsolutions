@@ -1337,7 +1337,14 @@
             <i class="fas fa-envelope"></i>
             <div>
               <div class="cl-label">Email</div>
-              <div class="cl-val">uduakben@uduakexglobalsolutions.online</div>
+              <a href="mailto:uduakben@uduakexglobalsolutions.online" class="cl-val text-decoration-none text-reset">uduakben@uduakexglobalsolutions.online</a>
+            </div>
+          </div>
+          <div class="contact-line">
+            <i class="fas fa-headset"></i>
+            <div>
+              <div class="cl-label">Support</div>
+              <a href="mailto:support@uduakexglobalsolutions.online" class="cl-val text-decoration-none text-reset">support@uduakexglobalsolutions.online</a>
             </div>
           </div>
           <div class="contact-line">

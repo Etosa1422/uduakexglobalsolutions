@@ -50,7 +50,10 @@
           <span style="padding-left:1.35rem;">14 Iriebe, Obio/Akpor</span>
         </p>
         <p style="color:#8ba3b8; font-size:0.88rem; margin-bottom:0.7rem;">
-          <i class="fas fa-envelope text-cyan me-2"></i>uduakben@uduakexglobalsolutions.online
+          <i class="fas fa-envelope text-cyan me-2"></i><a href="mailto:uduakben@uduakexglobalsolutions.online" class="text-decoration-none" style="color:inherit;">uduakben@uduakexglobalsolutions.online</a>
+        </p>
+        <p style="color:#8ba3b8; font-size:0.88rem; margin-bottom:0.7rem;">
+          <i class="fas fa-headset text-cyan me-2"></i><a href="mailto:support@uduakexglobalsolutions.online" class="text-decoration-none" style="color:inherit;">support@uduakexglobalsolutions.online</a>
         </p>
         <p style="color:#8ba3b8; font-size:0.88rem; margin:0;">
           <i class="fas fa-globe text-cyan me-2"></i>uduakexglobalsolutions.online
